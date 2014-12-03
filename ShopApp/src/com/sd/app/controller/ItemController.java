@@ -13,12 +13,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sd.app.bean.ItemBean;
+import com.sd.app.bean.ItemGroupBean;
+import com.sd.app.bean.ItemsBean;
 import com.sd.app.constraint.ItemAction;
 import com.sd.app.model.Item;
 import com.sd.app.model.ItemMaster;
+import com.sd.app.model.Items;
 import com.sd.app.service.ItemService;
 
 
@@ -39,13 +44,17 @@ public class ItemController {
 		model.put("items",  itemService.listBuyItems());
 		return new ModelAndView("itemsList", model);
 	}
+	
+	
 
-	@RequestMapping(value="/items", method = RequestMethod.GET)
-	public ModelAndView listItems() {
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("items",  itemService.listBuyItems());
-		return new ModelAndView("itemsList", model);
-	}
+	
+	
+	
+	
+	
+	
+
+	
 
 	@RequestMapping(value = "/addItem", method = RequestMethod.GET)
 	public ModelAndView addItem(@ModelAttribute("command")  ItemMaster itemMaster,
@@ -138,4 +147,104 @@ public class ItemController {
 		
 		return bean;
 	}
+	
+/*	@RequestMapping(value="/viewItems", method = RequestMethod.GET)
+	public ModelAndView viewItems(@RequestParam("itemId") String itemId) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		if(itemId!=null && !itemId.equals("")){
+			model.put("itemList",  itemService.getAllItemsByGoupId(Integer.parseInt(itemId)));
+		}
+		return new ModelAndView("items_list", model);
+	}
+	
+*/	
+	
+	
+	
+	
+	@RequestMapping(value="/viewItems", method=RequestMethod.GET)
+    public @ResponseBody  List<ItemsBean> viewItems(@RequestParam("itemId") String itemId) {
+		try{
+			if(itemId!=null && !itemId.equals("")){
+				 
+				List<Items> itemsList=itemService.getAllItemsByGoupId(Integer.parseInt(itemId));
+				List<ItemsBean> itemsBeanList=new ArrayList<>();
+				
+				if(itemsList!=null){
+					
+					for(Items it : itemsList){
+						
+						ItemsBean itBean=new ItemsBean();
+						
+						itBean.setCode(it.getCode());
+						itBean.setItemId(it.getItemId());
+						itBean.setParticulars(it.getParticulars());
+						itBean.setType(it.getType());
+						itBean.setUom(it.getUom());
+						
+						itemsBeanList.add(itBean);
+						
+					}
+				}
+				return itemsBeanList;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	   return null;
+    }
+	
+	
+	@RequestMapping(value = "/saveItemGroup", method = RequestMethod.POST)
+	public ModelAndView saveItemGroup(@ModelAttribute("command") ItemGroupBean itemGroupBean, 
+			BindingResult result) {
+		 try {
+			if(itemService.saveItemGroup(itemGroupBean)){
+				return new ModelAndView("redirect:/items");
+			 }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return new ModelAndView("redirect:/items");
+		
+	}
+	
+	
+	
+	
+	@RequestMapping(value="/items", method = RequestMethod.GET)
+	public ModelAndView listItems(@ModelAttribute("ItemGroupBean") ItemGroupBean itemGroupBean,@ModelAttribute("ItemsBean") ItemsBean itemsBean) {
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		model.put("items",  itemService.getAllItemGroups());
+		
+		List<String> glassList=new ArrayList<>();
+		glassList.add("Yes");
+		glassList.add("No");
+		
+		
+		model.put("glassList", glassList);
+		return new ModelAndView("items_list", model);
+	}
+	
+	
+	@RequestMapping(value = "/saveNewItem", method = RequestMethod.POST)
+	public ModelAndView saveGroupItems(@ModelAttribute("ItemsBean") ItemsBean itemsBean, 
+			BindingResult result) {
+		
+		
+		try {
+			itemService.saveGroupItems(itemsBean);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return new ModelAndView("redirect:/items");
+		
+	}
+	
+	
 }

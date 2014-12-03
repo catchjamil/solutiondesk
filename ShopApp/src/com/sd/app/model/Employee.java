@@ -18,6 +18,7 @@ public class Employee  implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	
 	@Column
 	protected Integer id;
 	@Column
@@ -30,6 +31,8 @@ public class Employee  implements Serializable{
 	protected Date modifiedOn = new Date();
 	@Column
 	protected String status;
+	
+	
 	@Column
 	private Long contactNo;
 	public Long getContactNo() {

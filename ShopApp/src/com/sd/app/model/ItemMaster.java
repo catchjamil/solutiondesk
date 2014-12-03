@@ -14,8 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.context.annotation.Lazy;
-
 @Entity
 @Table(name="ItemMaster")
 public class ItemMaster implements Serializable{

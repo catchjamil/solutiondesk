@@ -46,5 +46,8 @@
   </definition>
  
  
+    <definition name="items_list" extends="welcome">
+      <put-attribute name="body"  value="/WEB-INF/views/items_list.jsp"/>      
+  </definition>
  
 </tiles-definitions>

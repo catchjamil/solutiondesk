@@ -39,10 +39,12 @@ import com.sd.app.service.ItemService;
 public class SellItemController {
 
 	String fileSeprator = java.io.File.separator;
+	
 	@Autowired
 	private ItemService itemService;
 	private String billNumber;
 	private int sequenceNo;
+	
 	@RequestMapping(value = { "/sellItem" }, method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
 		System.out.println("Sell page..");
