@@ -50,6 +50,10 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 				<value>com.sd.app.model.Employee</value>
 				<value>com.sd.app.model.Item</value>
 				<value>com.sd.app.model.ItemMaster</value>
+
+				<value>com.sd.app.bean.masters.Units</value>
+				<value>com.sd.app.bean.company.Company</value>
+				<value>com.sd.app.bean.company.CompanyTables</value>
 				<value>com.sd.app.model.ItemGroup</value>
 				<value>com.sd.app.model.Items</value>
 				
