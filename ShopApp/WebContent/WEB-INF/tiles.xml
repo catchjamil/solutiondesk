@@ -44,7 +44,15 @@
    <definition name="sellItemList" extends="welcome">
       <put-attribute name="body"  value="/WEB-INF/views/SellItemList.jsp"/>      
   </definition>
+  
+     <definition name="generateQuotation" extends="welcome">
+      <put-attribute name="body"  value="/WEB-INF/views/GenerateQuotation.jsp"/>      
+  </definition>
+  <definition name="addParty" extends="welcome">
+      <put-attribute name="body"  value="/WEB-INF/views/AddParty.jsp"/>      
+  </definition>
  
+
  
     <definition name="items_list" extends="welcome">
       <put-attribute name="body"  value="/WEB-INF/views/items_list.jsp"/>      
