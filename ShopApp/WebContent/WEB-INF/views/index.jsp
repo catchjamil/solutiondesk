@@ -13,5 +13,6 @@
     <h4>3. <a href="items.html">List of Items</a></h4>
     <h4>4. <a href="addItem.html">Buy Item</a></h4>
     <h4>5. <a href="sellItem.html">Sell Item</a></h4>
+    <h4>5. <a href="addParty.html">Add Party</a></h4>
   </body>
 </html>
